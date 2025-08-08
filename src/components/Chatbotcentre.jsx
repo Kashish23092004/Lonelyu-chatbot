@@ -4,6 +4,7 @@ import { Mic, SendHorizontal } from 'lucide-react'
 import { URL } from '../config/geminiapi'
 const Chatbotcentre = () => {
 const [questions, setquestions] = useState('')
+const [result,setresult]=useState('');
 const sendq=async()=>{
   const payload={
     "contents": [
@@ -32,7 +33,8 @@ const sendq=async()=>{
     }
   
     const data = await response.json();
-    console.log(response)
+    console.log(data.candidates[0].content.parts[0].text);
+    setresult(data.candidates[0].content.parts[0].text);
 }
 catch(error){
   console.error('Fetch error:',error);
@@ -42,6 +44,7 @@ catch(error){
     return (
         <div>
             <div className='text-2xl font-normal font-serif m-80'>Hello there! What you want to talk about....</div>
+             <div className='text-2xl font-normal font-serif m-80'>{result}</div>
             <div className='h-0.5'>
                 <div className='flex items-center rounded-2xl px-3 py-4 w-full max-w-4xl ml-40 mt-72 bg-gray-700'>
                     <div className="dropdown dropdown-top">
